@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="MemberMapper">
+	<resultMap type="com.ordinary.member.model.vo.Member" id="memberResultMap">
+		<id property="memberId" column="MEMBER_ID"/>
+		<result property="memberPw" column="MEMBER_PW"/>
+		<result property="memberName" column="MEMBER_NAME"/>
+		<result property="memberGender" column="GENDER"/>
+		<result property="memberAge" column="AGE"/>
+		<result property="memberEmail" column="EMAIL"/>
+		<result property="memberPhone" column="PHONE"/>
+		<result property="memberAddress" column="ADDRESS"/>
+		<result property="memberHobby" column="HOBBY"/>
+		<result property="memberRegDate" column="REG_DATE"/>
+	</resultMap>
+	<insert id="insertMember">
+		INSERT INTO MEMBER_TBL VALUES(#{memberId},#{memberPw},#{memberName},#{memberGender},
+		#{memberAge},#{memberEmail},#{memberPhone},#{memberAddress},#{memberHobby}, DEFAULT)
+	</insert>
+	<delete id="deleteMember">
+		DELETE FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId}
+	</delete>
+	<update id="modifyMember">
+		UPDATE MEMBER_TBL SET EMAIL = #{memberEmail}, PHONE = #{memberPhone}, ADDRESS = #{memberAddress}, HOBBY=#{memberHobby} WHERE MEMBER_ID = #{memberId}
+	</update>
+	<select id="checkLogin" resultMap="memberResultMap">
+		SELECT * FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND MEMBER_PW = #{memberPw}
+	</select>
+	
+	<select id="selectOneById" resultMap="memberResultMap">
+		SELECT * FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId}
+	</select>
+</mapper>
